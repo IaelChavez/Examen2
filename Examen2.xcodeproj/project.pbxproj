@@ -37,7 +37,6 @@
 		F1847E9829F7465D00F0C5DE = {
 			isa = PBXGroup;
 			children = (
-				F1847EB229F746FC00F0C5DE /* Menu.swift */,
 				F1847EA329F7465D00F0C5DE /* Examen2 */,
 				F1847EA229F7465D00F0C5DE /* Products */,
 			);
@@ -54,6 +53,7 @@
 		F1847EA329F7465D00F0C5DE /* Examen2 */ = {
 			isa = PBXGroup;
 			children = (
+				F1847EB229F746FC00F0C5DE /* Menu.swift */,
 				F1847EA429F7465D00F0C5DE /* Examen2App.swift */,
 				F1847EA629F7465D00F0C5DE /* ContentView.swift */,
 				F1847EA829F7465E00F0C5DE /* Assets.xcassets */,
