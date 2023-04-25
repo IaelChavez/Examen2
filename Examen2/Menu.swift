@@ -8,8 +8,29 @@
 import SwiftUI
 
 struct Menu: View {
+    let menuOptions = [("Register", "person.fill", MenuRegister()), ("Sales", "dollarsign.circle.fill",MenuRegister()), ("Purchase", "cart.fill",MenuRegister())]
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView{
+            VStack {
+                List{
+                    Section(header: Text("First header"), footer: Text("")) {
+                        ForEach(menuOptions, id: \.self.0) { option in
+                            HStack {
+                                Image(systemName: option.1)
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                    .padding(.trailing, 10)
+                                NavigationLink(destination: option.2, label: {Text(option.0)})
+                                .foregroundColor(.black)
+                            }
+                            
+                        }
+                    }
+                }
+                .listStyle(InsetGroupedListStyle())
+            }
+        }
     }
 }
 
