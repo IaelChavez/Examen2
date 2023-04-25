@@ -15,3 +15,9 @@ struct Examen2App: App {
         }
     }
 }
+
+struct Examen2AppPreviews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
