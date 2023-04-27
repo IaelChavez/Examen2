@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C9877FA329F76B5F003E6407 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9877FA229F76B5F003E6407 /* Product.swift */; };
 		F118592A29FA0FCF00E12AF2 /* Sales.swift in Sources */ = {isa = PBXBuildFile; fileRef = F118592929FA0FCF00E12AF2 /* Sales.swift */; };
+		F118592C29FA12E300E12AF2 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F118592B29FA12E300E12AF2 /* Purchase.swift */; };
 		F146315B29F74E1A0019144F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F146315A29F74E1A0019144F /* User.swift */; };
 		F146315F29F750DE0019144F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F146315E29F750DE0019144F /* LoginView.swift */; };
 		F1847EA529F7465D00F0C5DE /* Examen2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1847EA429F7465D00F0C5DE /* Examen2App.swift */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		C9877FA229F76B5F003E6407 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		F118592929FA0FCF00E12AF2 /* Sales.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sales.swift; sourceTree = "<group>"; };
+		F118592B29FA12E300E12AF2 /* Purchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
 		F146315A29F74E1A0019144F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F146315E29F750DE0019144F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		F1847EA129F7465D00F0C5DE /* Examen2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Examen2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,6 +68,7 @@
 				F1847EB229F746FC00F0C5DE /* Menu.swift */,
 				F1847EB629F7590B00F0C5DE /* MenuRegister.swift */,
 				F118592929FA0FCF00E12AF2 /* Sales.swift */,
+				F118592B29FA12E300E12AF2 /* Purchase.swift */,
 				F1847EA429F7465D00F0C5DE /* Examen2App.swift */,
 				F1847EA629F7465D00F0C5DE /* ContentView.swift */,
 				F146315A29F74E1A0019144F /* User.swift */,
@@ -157,6 +160,7 @@
 			files = (
 				F146315F29F750DE0019144F /* LoginView.swift in Sources */,
 				F146315B29F74E1A0019144F /* User.swift in Sources */,
+				F118592C29FA12E300E12AF2 /* Purchase.swift in Sources */,
 				F1847EB329F746FC00F0C5DE /* Menu.swift in Sources */,
 				F1847EA729F7465D00F0C5DE /* ContentView.swift in Sources */,
 				F1847EA529F7465D00F0C5DE /* Examen2App.swift in Sources */,
