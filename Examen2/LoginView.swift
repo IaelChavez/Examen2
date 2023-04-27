@@ -13,31 +13,29 @@ struct LoginView: View {
     @State private var isLoggedIn = false
     
     var body: some View {
-        VStack {
-            Text("Inicio de sesión")
-                .font(.title)
-                .fontWeight(.bold)
-                .padding(.bottom, 50)
-            
-            if isLoggedIn {
-                Text("¡Bienvenido!")
-            } else {
-                VStack {
-                    TextField("Nombre de usuario", text: $username)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                    
-                    SecureField("Contraseña", text: $password)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                    
-                    Button("Iniciar sesión") {
-                        // Aquí puedes agregar la lógica para validar el inicio de sesión
-                        isLoggedIn = true
+        NavigationView{
+            VStack {
+                Text("Inicio de sesión")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .padding(.bottom, 50)
+                
+                    VStack {
+                        TextField("Nombre de usuario", text: $username)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding()
+                        
+                        SecureField("Contraseña", text: $password)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding()
+                        
+                        NavigationLink(destination: Menu(), label: {Text("Iniciar Sesion")})
+                        
                     }
-                }
+                
             }
         }
+        
     }
 }
 
