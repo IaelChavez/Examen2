@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MenuRegister: View {
-    let menuOptions = [("User", "person.fill",MenuRegister()), ("Product", "dollarsign.circle.fill",MenuRegister())]
+    let menuOptions = [("User", "person.fill"), ("Product", "dollarsign.circle.fill")]
     var body: some View {
         VStack {
             List{
@@ -19,8 +19,7 @@ struct MenuRegister: View {
                                 .resizable()
                                 .frame(width: 20, height: 20)
                                 .padding(.trailing, 10)
-                            NavigationLink(destination: option.2, label: {Text(option.0)})
-                            .foregroundColor(.black)
+
                         }
                     }
                 }
