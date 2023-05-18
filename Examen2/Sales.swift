@@ -19,7 +19,7 @@ struct Sales: View {
     
     var body: some View {
         VStack{
-            Text("Usuario")
+            Text("Sales")
                 .font(.title)
                 .fontWeight(.bold)
                 .padding()

@@ -15,6 +15,34 @@ struct Menu: View {
             VStack {
                 List{
                     Section(header: Text("First header"), footer: Text("")) {
+                        HStack{
+                            Image(systemName: "person.fill")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                                .padding(.trailing, 10)
+                            NavigationLink(destination: MenuRegister(), label: {Text("Register")})
+                                .foregroundColor(.black)
+                        }
+                        HStack{
+                            Image(systemName: "dollarsign.circle.fill")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                                .padding(.trailing, 10)
+                            NavigationLink(destination: Sales(), label: {Text("Sales")})
+                                .foregroundColor(.black)
+                        }
+                        HStack{
+                            Image(systemName: "cart.fill")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                                .padding(.trailing, 10)
+                            NavigationLink(destination: Purchase(), label: {Text("Purchase")})
+                                .foregroundColor(.black)
+                        }
+                    }
+                    
+                    /*
+                    Section(header: Text("First header"), footer: Text("")) {
                         ForEach(menuOptions, id: \.self.0) { option in
                             HStack {
                                 Image(systemName: option.1)
@@ -26,7 +54,7 @@ struct Menu: View {
                             }
                             
                         }
-                    }
+                    }*/
                 }
                 .listStyle(InsetGroupedListStyle())
             }
