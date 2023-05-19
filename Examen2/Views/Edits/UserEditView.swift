@@ -11,7 +11,7 @@ enum Action {
   case cancel
 }
  
-struct MovieEditView: View {
+struct UserEditView: View {
     @Environment(\.presentationMode) private var presentationMode
     @State var presentActionSheet = false
      
@@ -61,7 +61,7 @@ struct MovieEditView: View {
         .actionSheet(isPresented: $presentActionSheet) {
           ActionSheet(title: Text("Are you sure?"),
                       buttons: [
-                        .destructive(Text("Delete Movie"),
+                        .destructive(Text("Delete User"),
                                      action: { self.handleDeleteTapped() }),
                         .cancel()
                       ])
@@ -97,10 +97,10 @@ struct MovieEditView: View {
 //    }
 //}
  
-struct MovieEditView_Previews: PreviewProvider {
+struct UserEditView_Previews: PreviewProvider {
   static var previews: some View {
       let user = Users(id: "Sample title", age: "Sample Description", email: "2020", gender: "dfs", lastName: "sdf", name: "fsd", password: "fsd")
     let UserViewModel = UserViewModel(user: user)
-    return MovieEditView(viewModel: UserViewModel, mode: .edit)
+    return UserEditView(viewModel: UserViewModel, mode: .edit)
   }
 }

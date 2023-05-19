@@ -2,7 +2,7 @@ import SwiftUI
  
 struct UserDetailsView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var presentEditMovieSheet = false
+    @State var presentEditUserSheet = false
      
     var user: Users
      
@@ -26,7 +26,7 @@ struct UserDetailsView: View {
       }
       .navigationBarTitle("Datos de \(user.name)")
       .navigationBarItems(trailing: editButton {
-        self.presentEditMovieSheet.toggle()
+        self.presentEditUserSheet.toggle()
       })
       .onAppear() {
         print("UserDetailsView.onAppear() for \(self.user.name)")
@@ -34,8 +34,8 @@ struct UserDetailsView: View {
       .onDisappear() {
         print("UserDetailsView.onDisappear()")
       }
-      .sheet(isPresented: self.$presentEditMovieSheet) {
-        MovieEditView(viewModel: UserViewModel(user: user), mode: .edit) { result in
+      .sheet(isPresented: self.$presentEditUserSheet) {
+          UserEditView(viewModel: UserViewModel(user: user), mode: .edit) { result in
           if case .success(let action) = result, action == .delete {
             self.presentationMode.wrappedValue.dismiss()
           }
@@ -45,12 +45,3 @@ struct UserDetailsView: View {
      
   }
  
-struct UserDetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        let user = Users(id: "Sample title", age: "12", email: "2020", gender: "dfs", lastName: "Juan", name: "Pepe", password: "123")
-        return
-          NavigationView {
-            UserDetailsView(user: user)
-          }
-    }
-}

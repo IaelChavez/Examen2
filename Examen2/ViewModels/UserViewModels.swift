@@ -14,7 +14,7 @@ class UserViewModel: ObservableObject {
      
     self.$user
       .dropFirst()
-      .sink { [weak self] movie in
+      .sink { [weak self] user in
         self?.modified = true
       }
       .store(in: &self.cancellables)
@@ -44,7 +44,7 @@ class UserViewModel: ObservableObject {
     }
   }
    
-  private func updateOrAddMovie() {
+  private func updateOrAddUser() {
     if let _ = user.id {
       self.updateUser(self.user)
     }
@@ -66,7 +66,7 @@ class UserViewModel: ObservableObject {
   // UI handlers
    
   func handleDoneTapped() {
-    self.updateOrAddMovie()
+    self.updateOrAddUser()
   }
    
   func handleDeleteTapped() {
