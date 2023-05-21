@@ -18,7 +18,7 @@ struct MenuRegister: View {
                                 .resizable()
                                 .frame(width: 20, height: 20)
                                 .padding(.trailing, 10)
-                            NavigationLink(destination: User(), label: {Text("User")})
+                            NavigationLink(destination: UserList(), label: {Text("User")})
                                 .foregroundColor(.black)
                         }
                         HStack{
