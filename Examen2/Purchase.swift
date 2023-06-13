@@ -15,22 +15,30 @@ struct Purchase: View {
 
     
     var body: some View {
-        VStack{
-            Text("Purchase")
-                .font(.title)
-                .fontWeight(.bold)
-                .padding()
-            Form{
-                TextField("IDProducto", text: $id)
-                TextField("Nombre", text: $name)
-                TextField("Piezas", text: $cant)
-                TextField("IDAdministrador", text: $IdA)
-            }
-            Button(action:{
-                
-            }){
-                Text("Alta")
-            }
+        ZStack{
+            LinearGradient(gradient: Gradient(colors: [.blue, .green,
+            .yellow]), startPoint: .topLeading, endPoint:
+                    .bottomTrailing) .edgesIgnoringSafeArea(.all)
+            VStack{
+                Text("Compra")
+                    .foregroundColor(.white)
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .padding()
+                Form{
+                    TextField("ID Producto", text: $id)
+                    TextField("Nombre", text: $name)
+                    TextField("Piezas", text: $cant)
+                    TextField("ID Administrador", text: $IdA)
+                }
+                Button(action:{
+                    
+                }){
+                    Text("Alta")
+                        .foregroundColor(.white)
+                        .shadow(color: Color.black.opacity(0.5), radius: 10, x:0, y:10)
+                }
+            }.scrollContentBackground(.hidden)
         }
     }
 }

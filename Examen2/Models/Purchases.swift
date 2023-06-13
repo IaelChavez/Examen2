@@ -13,6 +13,7 @@ struct Purchases: Identifiable, Codable {
   var total: String
    
   enum CodingKeys: String, CodingKey {
+    case id
     case cant
     case idC
     case idProduct

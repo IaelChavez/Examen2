@@ -1,10 +1,10 @@
 import SwiftUI
  
-struct UserDetailsView: View {
+struct SaleDetailsView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var presentEditUserSheet = false
      
-    var user: Users
+    var sale: Sale
      
     private func editButton(action: @escaping () -> Void) -> some View {
       Button(action: { action() }) {
@@ -13,6 +13,7 @@ struct UserDetailsView: View {
     }
      
     var body: some View {
+      
         ZStack{
             LinearGradient(gradient: Gradient(colors: [.blue, .green,
             .yellow]), startPoint: .topLeading, endPoint:
@@ -20,27 +21,24 @@ struct UserDetailsView: View {
             VStack{
                 Form {
                     Section(header: Text("Detalle")) {
-                      Text("Name: \(user.name)")
-                      Text("Last Name: \(user.lastName)")
-                      Text("Age: \(user.age)")
-                      Text("Gender: \(user.gender)")
-                      Text("Email: \(user.email)")
-                      Text("Password: \(user.password)")
-                  }
+                      Text("IdA: \(sale.IdA)")
+                      Text("IdProduct: \(sale.idProduct)")
+                      Text("name: \(sale.name)")
+                      Text("Pieces: \(sale.pieces)")        }
                    
                 }
-                .navigationBarTitle("Datos de \(user.name)")
+                .navigationBarTitle("Datos de \(sale.name)")
                 .navigationBarItems(trailing: editButton {
                   self.presentEditUserSheet.toggle()
                 })
                 .onAppear() {
-                  print("UserDetailsView.onAppear() for \(self.user.name)")
+                  print("SaleDetailsView.onAppear() for \(self.sale.name)")
                 }
                 .onDisappear() {
-                  print("UserDetailsView.onDisappear()")
+                  print("SaleDetailsView.onDisappear()")
                 }
                 .sheet(isPresented: self.$presentEditUserSheet) {
-                    UserEditView(viewModel: UserViewModel(user: user), mode: .edit) { result in
+                    SaleEditView(viewModel: SaleViewModel(sale: sale), mode: .edit) { result in
                     if case .success(let action) = result, action == .delete {
                       self.presentationMode.wrappedValue.dismiss()
                     }

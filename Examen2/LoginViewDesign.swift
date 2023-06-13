@@ -1,60 +1,53 @@
+//
+//  LoginViewDesign.swift
+//  Examen2
+//
+//  Created by ISSC_611_2023 on 07/06/23.
+//
+
 import SwiftUI
 import Firebase
 
-struct LoginView: View {
+struct LoginViewDesign: View {
     @State private var email = ""
     @State private var password = ""
     @State private var isLoggedIn = false
-    @State private var loginError: LoginError? = nil
-    
-    var body: some View{
-        if isLoggedIn {
-            Home()
-        }
-        else{
-            content
-        }
-    }
+    @State private var loginErrors: LoginErrors? = nil
     
     
-    var content: some View {
+    var body: some View {
         NavigationView{
             ZStack {
-                LinearGradient(gradient: Gradient(colors: [.blue, .green,
-                                                           .yellow]), startPoint: .topLeading, endPoint:
-                        .bottomTrailing) .edgesIgnoringSafeArea(.all)
                 Image("fondologin")
                     .resizable()
                     .ignoresSafeArea()
                 
                 VStack {
-                    
                     Text("Inicio de sesión")
                         .font(.title)
                         .fontWeight(.bold)
                         .padding(.bottom, 50)
                         .foregroundColor(.white)
-                    TextField("Correo", text: $email)
+                    TextField("Nombre de usuario", text: $email)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
                         .shadow(color: Color.black.opacity(0.3), radius: 10, x:0, y:10)
-                        .autocapitalization(.none)
                     SecureField("Contraseña", text: $password)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
                         .shadow(color: Color.black.opacity(0.3), radius: 10, x:0, y:10)
-                    Button(action: {
-                        signIn()
-                    }) {
-                        Text("Iniciar Sesion")
-                            .cornerRadius(10)
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 18)
+                    NavigationLink(destination: Menu(), label: {Text("Iniciar Sesion")
+                            .padding(.horizontal, 20)
                             .padding(.vertical, 1)
-                        
-                        
-                        
-                    }.buttonStyle(CustomButtonStyle())
+                    })
+                        .buttonStyle(CustomButtonStyle())
+
+                        .onTapGesture {
+                            signIn()
+                        }
+                        .alert(item: $loginErrors) { error in
+                            Alert(title: Text("Error"), message: Text(error.message), dismissButton: .default(Text("OK")))
+                        }
                     
                     Button(action: {
                         register()
@@ -62,8 +55,9 @@ struct LoginView: View {
                         Text("Registrar Usuario")
                             .cornerRadius(10)
                             .foregroundColor(.white)
-                            .padding(.horizontal, 1)
+                            .padding(.horizontal, 1) // Ajustar el relleno horizontal según el tamaño deseado
                             .padding(.vertical, 1)
+                            .cornerRadius(10)
                     }
                     .buttonStyle(CustomButtonStyle())
                 }
@@ -80,7 +74,7 @@ struct LoginView: View {
                 // Aquí puedes realizar acciones adicionales después del inicio de sesión
             } else {
                 // Ocurrió un error durante el inicio de sesión
-                loginError = LoginError(message: error?.localizedDescription ?? "")
+                loginErrors = LoginErrors(message: error?.localizedDescription ?? "")
             }
             
         }
@@ -95,13 +89,15 @@ struct LoginView: View {
     }
 }
 
-struct LoginView_Previews: PreviewProvider {
+
+struct LoginViewDesign_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginViewDesign()
+
     }
 }
 
-struct LoginError: Identifiable {
+struct LoginErrors: Identifiable {
     let id = UUID()
     let message: String
 }

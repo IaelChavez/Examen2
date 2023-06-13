@@ -9,6 +9,7 @@ struct Sale: Identifiable, Codable {
   var pieces: String
    
   enum CodingKeys: String, CodingKey {
+    case id
     case IdA
     case idProduct
     case name

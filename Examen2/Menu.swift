@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct Menu: View {
-    let menuOptions = [("Register", "person.fill", MenuRegister()), ("Sales", "dollarsign.circle.fill",MenuRegister()), ("Purchase", "cart.fill",MenuRegister())]
+    @Environment(\.presentationMode) var presentationMode
+    @State private var showingNextView = false
     
     var body: some View {
-        NavigationView{
+        ZStack{
             VStack {
                 List{
-                    Section(header: Text("First header"), footer: Text("")) {
+                    Section(header: Text("MENU PRINCIPAL"), footer: Text("").foregroundColor(.white)) {
                         HStack{
                             Image(systemName: "person.fill")
                                 .resizable()
@@ -28,7 +29,7 @@ struct Menu: View {
                                 .resizable()
                                 .frame(width: 20, height: 20)
                                 .padding(.trailing, 10)
-                            NavigationLink(destination: Sales(), label: {Text("Sales")})
+                            NavigationLink(destination: SaleList(), label: {Text("Sales")})
                                 .foregroundColor(.black)
                         }
                         HStack{
@@ -36,29 +37,16 @@ struct Menu: View {
                                 .resizable()
                                 .frame(width: 20, height: 20)
                                 .padding(.trailing, 10)
-                            NavigationLink(destination: Purchase(), label: {Text("Purchase")})
+                            NavigationLink(destination: PurchaseList(), label: {Text("Purchase")})
                                 .foregroundColor(.black)
                         }
                     }
                     
-                    /*
-                    Section(header: Text("First header"), footer: Text("")) {
-                        ForEach(menuOptions, id: \.self.0) { option in
-                            HStack {
-                                Image(systemName: option.1)
-                                    .resizable()
-                                    .frame(width: 20, height: 20)
-                                    .padding(.trailing, 10)
-                                NavigationLink(destination: option.2, label: {Text(option.0)})
-                                .foregroundColor(.black)
-                            }
-                            
-                        }
-                    }*/
+                    
                 }
                 .listStyle(InsetGroupedListStyle())
-            }
-        }
+            }.scrollContentBackground(.hidden)
+        }            .background(Color(hex: "#EAEFBD"))
     }
 }
 

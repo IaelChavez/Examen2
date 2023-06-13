@@ -1,10 +1,10 @@
 import SwiftUI
  
-struct UserDetailsView: View {
+struct ProductDetailsView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var presentEditUserSheet = false
      
-    var user: Users
+    var product: Products
      
     private func editButton(action: @escaping () -> Void) -> some View {
       Button(action: { action() }) {
@@ -20,27 +20,27 @@ struct UserDetailsView: View {
             VStack{
                 Form {
                     Section(header: Text("Detalle")) {
-                      Text("Name: \(user.name)")
-                      Text("Last Name: \(user.lastName)")
-                      Text("Age: \(user.age)")
-                      Text("Gender: \(user.gender)")
-                      Text("Email: \(user.email)")
-                      Text("Password: \(user.password)")
+                      Text("Name: \(product.name)")
+                        Text("Description: \(product.description)")
+                      Text("Cost: \(product.cost)")
+                      Text("Price: \(product.price)")
+                      Text("Units: \(product.units)")
+                      Text("Utility: \(product.utility)")
                   }
                    
                 }
-                .navigationBarTitle("Datos de \(user.name)")
+                .navigationBarTitle("Datos de \(product.name)")
                 .navigationBarItems(trailing: editButton {
                   self.presentEditUserSheet.toggle()
                 })
                 .onAppear() {
-                  print("UserDetailsView.onAppear() for \(self.user.name)")
+                  print("ProductDetailsView.onAppear() for \(self.product.name)")
                 }
                 .onDisappear() {
-                  print("UserDetailsView.onDisappear()")
+                  print("ProductDetailsView.onDisappear()")
                 }
                 .sheet(isPresented: self.$presentEditUserSheet) {
-                    UserEditView(viewModel: UserViewModel(user: user), mode: .edit) { result in
+                    ProductEditView(viewModel: ProductViewModel(product: product), mode: .edit) { result in
                     if case .success(let action) = result, action == .delete {
                       self.presentationMode.wrappedValue.dismiss()
                     }
@@ -48,7 +48,7 @@ struct UserDetailsView: View {
                 }
             }.scrollContentBackground(.hidden)
         }
+      
     }
      
   }
- 

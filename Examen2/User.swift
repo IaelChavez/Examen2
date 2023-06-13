@@ -17,24 +17,32 @@ struct User: View {
     @State private var pass2 = ""
     
     var body: some View {
-        VStack{
-            Text("User")
-                .font(.title)
-                .fontWeight(.bold)
-                .padding()
-            Form{
-                TextField("Nombre", text: $name)
-                TextField("Apellido", text: $lastname)
-                TextField("Edad", text: $age)
-                TextField("Genero", text: $gender)
-                TextField("Usuario", text: $user)
-                SecureField("Contraseña", text: $pass)
-            }
-            Button(action:{
-                
-            }){
-                Text("Registrar")
-            }
+        ZStack{
+            LinearGradient(gradient: Gradient(colors: [.blue, .green,
+            .yellow]), startPoint: .topLeading, endPoint:
+                    .bottomTrailing) .edgesIgnoringSafeArea(.all)
+            VStack{
+                Text("User")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .padding()
+                    .foregroundColor(.white)
+                Form{
+                    TextField("Nombre", text: $name)
+                    TextField("Apellido", text: $lastname)
+                    TextField("Edad", text: $age)
+                    TextField("Genero", text: $gender)
+                    TextField("Usuario", text: $user)
+                    SecureField("Contraseña", text: $pass)
+                }
+                Button(action:{
+                    
+                }){
+                    Text("Registrar")
+                        .foregroundColor(.white)
+                        .shadow(color: Color.black.opacity(0.5), radius: 10, x:0, y:10)
+                }
+            }.scrollContentBackground(.hidden)
         }
     }
 }

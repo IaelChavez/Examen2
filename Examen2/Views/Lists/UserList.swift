@@ -3,11 +3,11 @@ import SwiftUI
 struct UserList: View {
      
     @StateObject var viewModel = UsersViewModel()
-    @State var presentAddMovieSheet = false
+    @State var presentAddUserSheet = false
      
      
     private var addButton: some View {
-      Button(action: { self.presentAddMovieSheet.toggle() }) {
+      Button(action: { self.presentAddUserSheet.toggle() }) {
         Image(systemName: "plus")
       }
     }
@@ -26,29 +26,34 @@ struct UserList: View {
     }
      
     var body: some View {
-      NavigationView {
-        List {
-            ForEach (viewModel.users) { user in
-            userRowView(user: user)
+          ZStack{
+              LinearGradient(gradient: Gradient(colors: [.blue, .green,
+                      .yellow]), startPoint: .topLeading, endPoint:
+                      .bottomTrailing) .edgesIgnoringSafeArea(.all)
+                  .scrollContentBackground(.hidden)
+              VStack{
+                  List {
+                      ForEach (viewModel.users) { user in
+                      userRowView(user: user)
+                    }
+                    .onDelete() { indexSet in
+                      viewModel.removeUsers(atOffsets: indexSet)
+                    }
+                  }
+                  .navigationBarTitle("Usuarios")
+                  
+                  .navigationBarItems(trailing: addButton)
+                  .onAppear() {
+                    print("MoviesListView appears. Subscribing to data updates.")
+                    self.viewModel.subscribe()
+                  }
+                  .sheet(isPresented: self.$presentAddUserSheet) {
+                      UserEditView() //MovieEditView.swift
+                  }
+              }.scrollContentBackground(.hidden)
           }
-          .onDelete() { indexSet in
-            viewModel.removeUsers(atOffsets: indexSet)
-          }
-        }
-        .navigationBarTitle("Usuarios")
-        .navigationBarItems(trailing: addButton)
-        .onAppear() {
-          print("MoviesListView appears. Subscribing to data updates.")
-          self.viewModel.subscribe()
-        }
-        .sheet(isPresented: self.$presentAddMovieSheet) {
-            UserEditView() //MovieEditView.swift
-        }
-         
-      }// End Navigation
     }// End Body
 }
- 
  
 struct UserList_Previews: PreviewProvider {
     static var previews: some View {

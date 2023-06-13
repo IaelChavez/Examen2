@@ -1,23 +1,23 @@
 import SwiftUI
  
-enum ModeUser {
+enum ModeProduct {
   case new
   case edit
 }
  
-enum ActionUser {
+enum ActionProduct {
   case delete
   case done
   case cancel
 }
  
-struct UserEditView: View {
+struct ProductEditView: View {
     @Environment(\.presentationMode) private var presentationMode
     @State var presentActionSheet = false
      
-    @ObservedObject var viewModel = UserViewModel()
-    var mode: ModeUser = .new
-    var completionHandler: ((Result<ActionUser, Error>) -> Void)?
+    @ObservedObject var viewModel = ProductViewModel()
+    var mode: ModeProduct = .new
+    var completionHandler: ((Result<ActionProduct, Error>) -> Void)?
      
      
     var cancelButton: some View {
@@ -37,40 +37,39 @@ struct UserEditView: View {
       NavigationView {
           ZStack{
               LinearGradient(gradient: Gradient(colors: [.blue, .green,
-              .yellow]), startPoint: .topLeading, endPoint:
+                      .yellow]), startPoint: .topLeading, endPoint:
                       .bottomTrailing) .edgesIgnoringSafeArea(.all)
+                  .scrollContentBackground(.hidden)
               VStack{
                   Form {
                     Section(header: Text("Nombre")) {
-                        TextField("Nombre", text: $viewModel.user.name).foregroundColor(.black)
+                        TextField("Nombre", text: $viewModel.product.name).foregroundColor(.black)
                     }
 
-                      Section(header: Text("Apellido")) {
-                        TextField("Apellido", text: $viewModel.user.lastName).foregroundColor(.black)
+                      Section(header: Text("Descripcion")) {
+                          TextField("Descripcion", text: $viewModel.product.description).foregroundColor(.black)
                       }
                      
-                    Section(header: Text("Edad")) {
-                      TextField("Edad", text: $viewModel.user.age).foregroundColor(.black)
+                    Section(header: Text("Costo")) {
+                        TextField("Costo", text: $viewModel.product.cost).foregroundColor(.black)
                     }
-                      Section(header: Text("Genero")) {
-                        TextField("Genero", text: $viewModel.user.gender).foregroundColor(.black)
+                      Section(header: Text("Precio")) {
+                          TextField("Precio", text: $viewModel.product.price).foregroundColor(.black)
                       }
-                      Section(header: Text("Correo")) {
-                        TextField("Correo", text: $viewModel.user.email).foregroundColor(.black)
+                      Section(header: Text("Cantidad")) {
+                          TextField("Cantidad", text: $viewModel.product.units).foregroundColor(.black)
                       }
-                      
-                      Section(header: Text("Contraseña")) {
-                          TextField("Contraseña", text: $viewModel.user.password).foregroundColor(.black)
+                      Section(header: Text("Utilidad")) {
+                          TextField("Utilidad", text: $viewModel.product.utility).foregroundColor(.black)
                       }
-                     
                     if mode == .edit {
                       Section {
-                        Button("Eliminar Usuario") { self.presentActionSheet.toggle() }
+                        Button("Eliminar Producto") { self.presentActionSheet.toggle() }
                           .foregroundColor(.red)
                       }
                     }
                   }
-                  .navigationTitle(mode == .new ? "Nuevo Usuario" : "Usuario")
+                  .navigationTitle(mode == .new ? "Nuevo Producto" : "Producto")
                   .foregroundColor(mode == .new ? Color.white : Color.white)
                   .navigationBarTitleDisplayMode(mode == .new ? .inline : .large)
                   .navigationBarItems(
@@ -80,7 +79,7 @@ struct UserEditView: View {
                   .actionSheet(isPresented: $presentActionSheet) {
                     ActionSheet(title: Text("Estas Seguro?"),
                                 buttons: [
-                                  .destructive(Text("Eliminar Usuario"),
+                                  .destructive(Text("Eliminar Producto"),
                                                action: { self.handleDeleteTapped() }),
                                   .cancel()
                                 ])
@@ -118,10 +117,10 @@ struct UserEditView: View {
 //    }
 //}
  
-struct UserEditView_Previews: PreviewProvider {
+struct ProductEditView_Previews: PreviewProvider {
   static var previews: some View {
-      let user = Users(id: "", age: "", email: "", gender: "", lastName: "", name: "", password: "")
-    let UserViewModel = UserViewModel(user: user)
-    return UserEditView(viewModel: UserViewModel, mode: .edit)
+      let product = Products(cost: "", description: "", name: "", price: "", units: "", utility: "")
+      let ProductViewModel = ProductViewModel(product: product)
+    return ProductEditView(viewModel: ProductViewModel, mode: .edit)
   }
 }

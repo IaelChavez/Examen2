@@ -11,6 +11,7 @@ struct Products: Identifiable, Codable {
   var utility: String
    
   enum CodingKeys: String, CodingKey {
+    case id
     case cost
     case description
     case name

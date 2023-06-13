@@ -1,10 +1,10 @@
 import SwiftUI
  
-struct UserDetailsView: View {
+struct PurchaseDetailsView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var presentEditUserSheet = false
      
-    var user: Users
+    var purchase: Purchases
      
     private func editButton(action: @escaping () -> Void) -> some View {
       Button(action: { action() }) {
@@ -20,27 +20,29 @@ struct UserDetailsView: View {
             VStack{
                 Form {
                     Section(header: Text("Detalle")) {
-                      Text("Name: \(user.name)")
-                      Text("Last Name: \(user.lastName)")
-                      Text("Age: \(user.age)")
-                      Text("Gender: \(user.gender)")
-                      Text("Email: \(user.email)")
-                      Text("Password: \(user.password)")
+                      Text("Name: \(purchase.name)")
+                      Text("IdC: \(purchase.idC)")
+                      Text("IdProduct: \(purchase.idProduct)")
+                      Text("IdV: \(purchase.idV)")
+                      Text("Cant: \(purchase.cant)")
+                      Text("Pieces: \(purchase.pieces)")
+                      Text("Subtotal: \(purchase.subtotal)")
+                      Text("Toatal: \(purchase.total)")
                   }
                    
                 }
-                .navigationBarTitle("Datos de \(user.name)")
+                .navigationBarTitle("Datos de \(purchase.name)")
                 .navigationBarItems(trailing: editButton {
                   self.presentEditUserSheet.toggle()
                 })
                 .onAppear() {
-                  print("UserDetailsView.onAppear() for \(self.user.name)")
+                  print("PurchaseDetailsView.onAppear() for \(self.purchase.name)")
                 }
                 .onDisappear() {
-                  print("UserDetailsView.onDisappear()")
+                  print("PurchaseDetailsView.onDisappear()")
                 }
                 .sheet(isPresented: self.$presentEditUserSheet) {
-                    UserEditView(viewModel: UserViewModel(user: user), mode: .edit) { result in
+                    PurchaseEditView(viewModel: PurchaseViewModel(purchase: purchase), mode: .edit) { result in
                     if case .success(let action) = result, action == .delete {
                       self.presentationMode.wrappedValue.dismiss()
                     }
@@ -48,6 +50,7 @@ struct UserDetailsView: View {
                 }
             }.scrollContentBackground(.hidden)
         }
+      
     }
      
   }

@@ -17,25 +17,33 @@ struct Product: View {
     @State private var utility = ""
     
     var body: some View {
-        VStack{
-            Text("Producto")
-                .font(.title)
-                .fontWeight(.bold)
-                .padding()
-            Form{
-                TextField("ID", text: $id)
-                TextField("Nombre", text: $name)
-                TextField("Descripcion", text: $description)
-                TextField("Unidad", text: $unit)
-                TextField("Costo", text: $cost)
-                TextField("Precio", text: $price)
-                TextField("Utilidad", text: $utility)
-            }
-            Button(action:{
-                
-            }){
-                Text("Registrar")
-            }
+        ZStack{
+            LinearGradient(gradient: Gradient(colors: [.blue, .green,
+            .yellow]), startPoint: .topLeading, endPoint:
+                    .bottomTrailing) .edgesIgnoringSafeArea(.all)
+            VStack{
+                Text("Producto")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .padding()
+                    .foregroundColor(.white)
+                Form{
+                    TextField("ID", text: $id)
+                    TextField("Nombre", text: $name)
+                    TextField("Descripcion", text: $description)
+                    TextField("Unidad", text: $unit)
+                    TextField("Costo", text: $cost)
+                    TextField("Precio", text: $price)
+                    TextField("Utilidad", text: $utility)
+                }
+                Button(action:{
+                    
+                }){
+                    Text("Registrar")
+                        .foregroundColor(.white)
+                        .shadow(color: Color.black.opacity(0.5), radius: 10, x:0, y:10)
+                }
+            }.scrollContentBackground(.hidden)
         }
     }
 }

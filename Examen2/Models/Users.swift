@@ -11,6 +11,7 @@ struct Users: Identifiable, Codable {
   var password: String
    
   enum CodingKeys: String, CodingKey {
+    case id
     case age
     case email
     case gender
