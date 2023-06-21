@@ -1,23 +1,23 @@
 import SwiftUI
  
-enum ModeProduct {
+enum ModeFerret {
   case new
   case edit
 }
  
-enum ActionProduct {
+enum ActionFerret {
   case delete
   case done
   case cancel
 }
  
-struct ProductEditView: View {
+struct FerretEditView: View {
     @Environment(\.presentationMode) private var presentationMode
     @State var presentActionSheet = false
      
-    @ObservedObject var viewModel = ProductViewModel()
-    var mode: ModeProduct = .new
-    var completionHandler: ((Result<ActionProduct, Error>) -> Void)?
+    @ObservedObject var viewModel = FerretViewModel()
+    var mode: ModeFerret = .new
+    var completionHandler: ((Result<ActionFerret, Error>) -> Void)?
      
      
     var cancelButton: some View {
@@ -36,40 +36,38 @@ struct ProductEditView: View {
     var body: some View {
       NavigationView {
           ZStack{
-              LinearGradient(gradient: Gradient(colors: [.blue, .green,
-                      .yellow]), startPoint: .topLeading, endPoint:
-                      .bottomTrailing) .edgesIgnoringSafeArea(.all)
-                  .scrollContentBackground(.hidden)
+              Color(hex: "#ccd85e")
+ .edgesIgnoringSafeArea(.all)
               VStack{
                   Form {
-                    Section(header: Text("Nombre")) {
-                        TextField("Nombre", text: $viewModel.product.name).foregroundColor(.black)
+                    Section(header: Text("Age").foregroundColor(.black)) {
+                        TextField("Age", text: $viewModel.ferret.age).foregroundColor(.black)
                     }
 
-                      Section(header: Text("Descripcion")) {
-                          TextField("Descripcion", text: $viewModel.product.description).foregroundColor(.black)
+                      Section(header: Text("Color").foregroundColor(.black)){
+                          TextField("Color", text: $viewModel.ferret.color).foregroundColor(.black)
                       }
                      
-                    Section(header: Text("Costo")) {
-                        TextField("Costo", text: $viewModel.product.cost).foregroundColor(.black)
+                    Section(header: Text("IdSupplier").foregroundColor(.black)) {
+                        TextField("IdSupplier", text: $viewModel.ferret.idSupplier).foregroundColor(.black)
                     }
-                      Section(header: Text("Precio")) {
-                          TextField("Precio", text: $viewModel.product.price).foregroundColor(.black)
+                      Section(header: Text("Image").foregroundColor(.black)) {
+                          TextField("Image", text: $viewModel.ferret.image).foregroundColor(.black)
                       }
-                      Section(header: Text("Cantidad")) {
-                          TextField("Cantidad", text: $viewModel.product.units).foregroundColor(.black)
+                      Section(header: Text("Nationality").foregroundColor(.black)) {
+                          TextField("Nationality", text: $viewModel.ferret.nationality).foregroundColor(.black)
                       }
-                      Section(header: Text("Utilidad")) {
-                          TextField("Utilidad", text: $viewModel.product.utility).foregroundColor(.black)
+                      Section(header: Text("Price").foregroundColor(.black)) {
+                          TextField("Price", text: $viewModel.ferret.species).foregroundColor(.black)
                       }
                     if mode == .edit {
                       Section {
-                        Button("Eliminar Producto") { self.presentActionSheet.toggle() }
+                        Button("Delete ") { self.presentActionSheet.toggle() }
                           .foregroundColor(.red)
                       }
                     }
                   }
-                  .navigationTitle(mode == .new ? "Nuevo Producto" : "Producto")
+                  .navigationTitle(mode == .new ? "New Product" : "Producto")
                   .foregroundColor(mode == .new ? Color.white : Color.white)
                   .navigationBarTitleDisplayMode(mode == .new ? .inline : .large)
                   .navigationBarItems(
@@ -77,9 +75,9 @@ struct ProductEditView: View {
                     trailing: saveButton
                   )
                   .actionSheet(isPresented: $presentActionSheet) {
-                    ActionSheet(title: Text("Estas Seguro?"),
+                    ActionSheet(title: Text("Are you sure?"),
                                 buttons: [
-                                  .destructive(Text("Eliminar Producto"),
+                                  .destructive(Text("Delete"),
                                                action: { self.handleDeleteTapped() }),
                                   .cancel()
                                 ])
@@ -117,10 +115,10 @@ struct ProductEditView: View {
 //    }
 //}
  
-struct ProductEditView_Previews: PreviewProvider {
+struct FerretEditView_Previews: PreviewProvider {
   static var previews: some View {
-      let product = Products(cost: "", description: "", name: "", price: "", units: "", utility: "")
-      let ProductViewModel = ProductViewModel(product: product)
-    return ProductEditView(viewModel: ProductViewModel, mode: .edit)
+      let ferret = Ferrets(age: "", color: "", idSupplier: "", image: "", nationality: "", price: "", species: "")
+      let FerretViewModel = FerretViewModel(ferret: ferret)
+    return FerretEditView(viewModel: FerretViewModel, mode: .edit)
   }
 }

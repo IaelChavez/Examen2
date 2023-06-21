@@ -1,23 +1,23 @@
 import SwiftUI
  
-enum ModePurchase {
+enum ModeSupplier{
   case new
   case edit
 }
  
-enum ActionPurchase {
+enum ActionSupplier {
   case delete
   case done
   case cancel
 }
  
-struct PurchaseEditView: View {
+struct SupplierEditView: View {
     @Environment(\.presentationMode) private var presentationMode
     @State var presentActionSheet = false
      
-    @ObservedObject var viewModel = PurchaseViewModel()
-    var mode: ModePurchase = .new
-    var completionHandler: ((Result<ActionPurchase, Error>) -> Void)?
+    @ObservedObject var viewModel = SupplierViewModel()
+    var mode: ModeSupplier = .new
+    var completionHandler: ((Result<ActionSupplier, Error>) -> Void)?
      
      
     var cancelButton: some View {
@@ -36,38 +36,28 @@ struct PurchaseEditView: View {
     var body: some View {
       NavigationView {
           ZStack{
-              LinearGradient(gradient: Gradient(colors: [.blue, .green,
-                      .yellow]), startPoint: .topLeading, endPoint:
-                      .bottomTrailing) .edgesIgnoringSafeArea(.all)
-                  .scrollContentBackground(.hidden)
+              Color(hex: "#ccd85e")
+ .edgesIgnoringSafeArea(.all)
               VStack{
                   Form {
-                    Section(header: Text("Nombre")) {
-                        TextField("Nombre", text: $viewModel.purchase.name).foregroundColor(.black)
+                    Section(header: Text("Company").foregroundColor(.black)) {
+                        TextField("Company", text: $viewModel.supplier.company).foregroundColor(.black)
                     }
 
-                      Section(header: Text("Cant")) {
-                          TextField("Cant", text: $viewModel.purchase.cant).foregroundColor(.black)
+                      Section(header: Text("Email").foregroundColor(.black)) {
+                          TextField("Email", text: $viewModel.supplier.email).foregroundColor(.black)
                       }
                      
-                    Section(header: Text("idC")) {
-                        TextField("idC", text: $viewModel.purchase.idC).foregroundColor(.black)
+                    Section(header: Text("Image").foregroundColor(.black)) {
+                        TextField("Image", text: $viewModel.supplier.image).foregroundColor(.black)
                     }
-                      Section(header: Text("idV")) {
-                          TextField("idV", text: $viewModel.purchase.idV).foregroundColor(.black)
+                      Section(header: Text("lastName").foregroundColor(.black)) {
+                          TextField("lastName", text: $viewModel.supplier.lastName).foregroundColor(.black)
                       }
-                      Section(header: Text("idProduct")) {
-                          TextField("idProduct", text: $viewModel.purchase.idProduct).foregroundColor(.black)
+                      Section(header: Text("Name").foregroundColor(.black)) {
+                          TextField("Name", text: $viewModel.supplier.name).foregroundColor(.black)
                       }
-                      Section(header: Text("Piezas")) {
-                          TextField("Piezas", text: $viewModel.purchase.pieces).foregroundColor(.black)
-                      }
-                      Section(header: Text("Total")) {
-                          TextField("Total", text: $viewModel.purchase.total).foregroundColor(.black)
-                      }
-                      Section(header: Text("Subtotal")) {
-                          TextField("Subtotal", text: $viewModel.purchase.subtotal).foregroundColor(.black)
-                      }
+                      
                     if mode == .edit {
                       Section {
                         Button("Eliminar Compra") { self.presentActionSheet.toggle() }
@@ -123,10 +113,10 @@ struct PurchaseEditView: View {
 //    }
 //}
  
-struct PurchaseEditView_Previews: PreviewProvider {
+struct SupplierEditView_Previews: PreviewProvider {
   static var previews: some View {
-      let purchase = Purchases(cant: "", idC: "", idProduct: "", idV: "", name: "", pieces: "", subtotal: "", total: "")
-      let PurchaseViewModel = PurchaseViewModel(purchase: purchase)
-    return PurchaseEditView(viewModel: PurchaseViewModel, mode: .edit)
+      let supplier = Suppliers(company: "", email: "", image: "", lastName: "", name: "")
+      let SupplierViewModel = SupplierViewModel(supplier: supplier)
+    return SupplierEditView(viewModel: SupplierViewModel, mode: .edit)
   }
 }

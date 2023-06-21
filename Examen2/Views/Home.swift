@@ -12,22 +12,22 @@ struct Home: View {
                     .tag(Tab.home)
                     // Hiding Native Bar
                     .toolbar(.hidden, for: .tabBar)
-                SaleList()
+                SalesList()
                     .tag(Tab.services)
                     // Hiding Native Bar
-                PurchaseList()
+                FerretList()
                     .tag(Tab.partners)
                     // Hiding Native Bar
                     .toolbar(.hidden, for: .tabBar)
-                ProductList()
+                SupplierList()
                     .tag(Tab.activity)
                     // Hiding Native Bar
                     .toolbar(.hidden, for: .tabBar)
-                UserList()
+                ClienteList()
                     .tag(Tab.products)
             }
             CustomTabBar()
-        }.background(Color(hex: "#EAEFBD"))
+        }.background(Color(hex: "#90BE6D"))
     }
     @ViewBuilder
     func CustomTabBar(_ tint: Color = Color(hex: "#90BE6D"), _ inactiveTint: Color = .white) -> some View{

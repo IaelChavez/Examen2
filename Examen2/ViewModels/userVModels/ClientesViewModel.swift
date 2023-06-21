@@ -2,8 +2,8 @@ import Foundation
 import Combine
 import FirebaseFirestore
  
-class UsersViewModel: ObservableObject {
-  @Published var users = [Users]()
+class ClientesViewModel: ObservableObject {
+  @Published var clientes = [Clientes]()
    
   private var db = Firestore.firestore()
   private var listenerRegistration: ListenerRegistration?
@@ -21,24 +21,24 @@ class UsersViewModel: ObservableObject {
    
   func subscribe() {
     if listenerRegistration == nil {
-      listenerRegistration = db.collection("users").addSnapshotListener { (querySnapshot, error) in
+      listenerRegistration = db.collection("clientes").addSnapshotListener { (querySnapshot, error) in
         guard let documents = querySnapshot?.documents else {
           print("No documents")
           return
         }
          
-        self.users = documents.compactMap { queryDocumentSnapshot in
-          try? queryDocumentSnapshot.data(as: Users.self)
+        self.clientes = documents.compactMap { queryDocumentSnapshot in
+          try? queryDocumentSnapshot.data(as: Clientes.self)
         }
       }
     }
   }
    
-  func removeUsers(atOffsets indexSet: IndexSet) {
-    let users = indexSet.lazy.map { self.users[$0] }
-    users.forEach { user in
-      if let documentId = user.id {
-        db.collection("users").document(documentId).delete { error in
+  func removeClientes(atOffsets indexSet: IndexSet) {
+    let clientes = indexSet.lazy.map { self.clientes[$0] }
+      clientes.forEach { cliente in
+      if let documentId = cliente.id {
+        db.collection("clientes").document(documentId).delete { error in
           if let error = error {
             print("Unable to remove document: \(error.localizedDescription)")
           }

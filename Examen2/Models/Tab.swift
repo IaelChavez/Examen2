@@ -2,11 +2,11 @@ import SwiftUI
 
 //Raw Value used as Tab Title
 enum Tab: String, CaseIterable{
-    case services = "Services"
-    case partners = "Partners"
-    case home = "Home"
-    case activity = "Activity"
-    case products = "Products"
+    case services = "Sales"
+    case partners = "Ferrets"
+    case home = "Inicio"
+    case activity = "Suppliers"
+    case products = "Clientes"
 
     
     // SF Symbol Image

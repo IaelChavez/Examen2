@@ -1,23 +1,23 @@
 import SwiftUI
  
-enum ModeSale {
+enum ModeSales {
   case new
   case edit
 }
  
-enum ActionSale {
+enum ActionSales {
   case delete
   case done
   case cancel
 }
  
-struct SaleEditView: View {
+struct SalesEditView: View {
     @Environment(\.presentationMode) private var presentationMode
     @State var presentActionSheet = false
      
-    @ObservedObject var viewModel = SaleViewModel()
-    var mode: ModeSale = .new
-    var completionHandler: ((Result<ActionSale, Error>) -> Void)?
+    @ObservedObject var viewModel = SalesViewModel()
+    var mode: ModeSales = .new
+    var completionHandler: ((Result<ActionSales, Error>) -> Void)?
      
      
     var cancelButton: some View {
@@ -36,26 +36,18 @@ struct SaleEditView: View {
     var body: some View {
       NavigationView {
           ZStack{
-              LinearGradient(gradient: Gradient(colors: [.blue, .green,
-                      .yellow]), startPoint: .topLeading, endPoint:
-                      .bottomTrailing) .edgesIgnoringSafeArea(.all)
-                  .scrollContentBackground(.hidden)
+              Color(hex: "#ccd85e")
+ .edgesIgnoringSafeArea(.all)
               VStack{
                   Form {
-                  Section(header: Text("IdA")) {
-                      TextField("IdA", text: $viewModel.sale.IdA).foregroundColor(.black)
+                  Section(header: Text("idClient").foregroundColor(.black)) {
+                      TextField("idClient", text: $viewModel.sale.idClient).foregroundColor(.black)
                   }
 
-                    Section(header: Text("Id del producto")) {
-                        TextField("idProducto", text: $viewModel.sale.idProduct).foregroundColor(.black)
+                    Section(header: Text("idFerret").foregroundColor(.black)) {
+                        TextField("idFerret", text: $viewModel.sale.idFerret).foregroundColor(.black)
                     }
-                   
-                  Section(header: Text("Nombre")) {
-                      TextField("Nombre", text: $viewModel.sale.name).foregroundColor(.black)
-                  }
-                    Section(header: Text("Pieces")) {
-                        TextField("Pieces", text: $viewModel.sale.pieces).foregroundColor(.black)
-                    }
+
                   if mode == .edit {
                     Section {
                       Button("Eliminar venta") { self.presentActionSheet.toggle() }
@@ -112,10 +104,10 @@ struct SaleEditView: View {
 //    }
 //}
  
-struct SaleEditView_Previews: PreviewProvider {
+struct SalesEditView_Previews: PreviewProvider {
   static var previews: some View {
-      let sale = Sale(IdA: "", idProduct: "", name: "", pieces: "")
-      let SaleViewModel = SaleViewModel(sale: sale)
-    return SaleEditView(viewModel: SaleViewModel, mode: .edit)
+      let sale = Sales(idClient: "", idFerret: "")
+      let SalesViewModel = SalesViewModel(sale: sale)
+    return SalesEditView(viewModel: SalesViewModel, mode: .edit)
   }
 }

@@ -1,11 +1,12 @@
 import Foundation
 import FirebaseFirestoreSwift
  
-struct Users: Identifiable, Codable {
+struct Clientes: Identifiable, Codable {
   @DocumentID var id: String?
   var age: String
   var email: String
   var gender: String
+    var image: String
   var lastName: String
   var name: String
   var password: String
@@ -18,5 +19,6 @@ struct Users: Identifiable, Codable {
     case lastName
     case name
     case password
+      case image
   }
 }

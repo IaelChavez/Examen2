@@ -1,23 +1,23 @@
 import SwiftUI
  
-enum ModeUser {
+enum ModeCliente {
   case new
   case edit
 }
  
-enum ActionUser {
+enum ActionCliente {
   case delete
   case done
   case cancel
 }
  
-struct UserEditView: View {
+struct ClienteEditView: View {
     @Environment(\.presentationMode) private var presentationMode
     @State var presentActionSheet = false
      
-    @ObservedObject var viewModel = UserViewModel()
-    var mode: ModeUser = .new
-    var completionHandler: ((Result<ActionUser, Error>) -> Void)?
+    @ObservedObject var viewModel = ClienteViewModel()
+    var mode: ModeCliente = .new
+    var completionHandler: ((Result<ActionCliente, Error>) -> Void)?
      
      
     var cancelButton: some View {
@@ -36,31 +36,33 @@ struct UserEditView: View {
     var body: some View {
       NavigationView {
           ZStack{
-              LinearGradient(gradient: Gradient(colors: [.blue, .green,
-              .yellow]), startPoint: .topLeading, endPoint:
-                      .bottomTrailing) .edgesIgnoringSafeArea(.all)
+              Color(hex: "#ccd85e")
+ .edgesIgnoringSafeArea(.all)
               VStack{
                   Form {
-                    Section(header: Text("Nombre")) {
-                        TextField("Nombre", text: $viewModel.user.name).foregroundColor(.black)
+                    Section(header: Text("Age").foregroundColor(.black)) {
+                        TextField("Age", text: $viewModel.cliente.age).foregroundColor(.black)
                     }
 
-                      Section(header: Text("Apellido")) {
-                        TextField("Apellido", text: $viewModel.user.lastName).foregroundColor(.black)
+                      Section(header: Text("Email").foregroundColor(.black)) {
+                        TextField("Email", text: $viewModel.cliente.email).foregroundColor(.black)
                       }
                      
-                    Section(header: Text("Edad")) {
-                      TextField("Edad", text: $viewModel.user.age).foregroundColor(.black)
+                    Section(header: Text("Gender").foregroundColor(.black)) {
+                      TextField("Gender", text: $viewModel.cliente.gender).foregroundColor(.black)
                     }
-                      Section(header: Text("Genero")) {
-                        TextField("Genero", text: $viewModel.user.gender).foregroundColor(.black)
+                      Section(header: Text("Image").foregroundColor(.black)) {
+                        TextField("Image", text: $viewModel.cliente.image).foregroundColor(.black)
                       }
-                      Section(header: Text("Correo")) {
-                        TextField("Correo", text: $viewModel.user.email).foregroundColor(.black)
+                      Section(header: Text("LastName").foregroundColor(.black)) {
+                        TextField("LastName", text: $viewModel.cliente.lastName).foregroundColor(.black)
                       }
                       
-                      Section(header: Text("Contraseña")) {
-                          TextField("Contraseña", text: $viewModel.user.password).foregroundColor(.black)
+                      Section(header: Text("Nombre").foregroundColor(.black)) {
+                          TextField("Nombre", text: $viewModel.cliente.name).foregroundColor(.black)
+                      }
+                      Section(header: Text("Password").foregroundColor(.black)) {
+                          TextField("Password", text: $viewModel.cliente.password).foregroundColor(.black)
                       }
                      
                     if mode == .edit {
@@ -70,7 +72,7 @@ struct UserEditView: View {
                       }
                     }
                   }
-                  .navigationTitle(mode == .new ? "Nuevo Usuario" : "Usuario")
+                  .navigationTitle(mode == .new ? "Nuevo Cliente" : "Cliente")
                   .foregroundColor(mode == .new ? Color.white : Color.white)
                   .navigationBarTitleDisplayMode(mode == .new ? .inline : .large)
                   .navigationBarItems(
@@ -118,10 +120,10 @@ struct UserEditView: View {
 //    }
 //}
  
-struct UserEditView_Previews: PreviewProvider {
+struct ClienteEditView_Previews: PreviewProvider {
   static var previews: some View {
-      let user = Users(id: "", age: "", email: "", gender: "", lastName: "", name: "", password: "")
-    let UserViewModel = UserViewModel(user: user)
-    return UserEditView(viewModel: UserViewModel, mode: .edit)
+      let cliente = Clientes(id: "", age: "", email: "", gender: "", image: "", lastName: "", name: "", password: "")
+    let ClienteViewModel = ClienteViewModel(cliente: cliente)
+    return ClienteEditView(viewModel: ClienteViewModel, mode: .edit)
   }
 }

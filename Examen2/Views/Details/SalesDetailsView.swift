@@ -1,10 +1,10 @@
 import SwiftUI
  
-struct SaleDetailsView: View {
+struct SalesDetailsView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var presentEditUserSheet = false
+    @State var presentEditClienteSheet = false
      
-    var sale: Sale
+    var sale: Sales
      
     private func editButton(action: @escaping () -> Void) -> some View {
       Button(action: { action() }) {
@@ -15,30 +15,25 @@ struct SaleDetailsView: View {
     var body: some View {
       
         ZStack{
-            LinearGradient(gradient: Gradient(colors: [.blue, .green,
-            .yellow]), startPoint: .topLeading, endPoint:
-                    .bottomTrailing) .edgesIgnoringSafeArea(.all)
             VStack{
                 Form {
                     Section(header: Text("Detalle")) {
-                      Text("IdA: \(sale.IdA)")
-                      Text("IdProduct: \(sale.idProduct)")
-                      Text("name: \(sale.name)")
-                      Text("Pieces: \(sale.pieces)")        }
+                      Text("idClient: \(sale.idClient)")
+                      Text("idFerret: \(sale.idFerret)")       }
                    
                 }
-                .navigationBarTitle("Datos de \(sale.name)")
+                .navigationBarTitle("Datos de \(sale.idClient)")
                 .navigationBarItems(trailing: editButton {
-                  self.presentEditUserSheet.toggle()
+                  self.presentEditClienteSheet.toggle()
                 })
                 .onAppear() {
-                  print("SaleDetailsView.onAppear() for \(self.sale.name)")
+                  print("SaleDetailsView.onAppear() for \(self.sale.idClient)")
                 }
                 .onDisappear() {
                   print("SaleDetailsView.onDisappear()")
                 }
-                .sheet(isPresented: self.$presentEditUserSheet) {
-                    SaleEditView(viewModel: SaleViewModel(sale: sale), mode: .edit) { result in
+                .sheet(isPresented: self.$presentEditClienteSheet) {
+                    SalesEditView(viewModel: SalesViewModel(sale: sale), mode: .edit) { result in
                     if case .success(let action) = result, action == .delete {
                       self.presentationMode.wrappedValue.dismiss()
                     }

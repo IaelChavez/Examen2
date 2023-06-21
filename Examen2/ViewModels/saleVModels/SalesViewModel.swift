@@ -3,47 +3,74 @@ import Combine
 import FirebaseFirestore
  
 class SalesViewModel: ObservableObject {
-  @Published var sales = [Sale]()
+   
+  @Published var sale: Sales
+  @Published var modified = false
+   
+  private var cancellables = Set<AnyCancellable>()
+   
+  init(sale: Sales = Sales(idClient: "", idFerret: "")) {
+    self.sale = sale
+     
+    self.$sale
+      .dropFirst()
+      .sink { [weak self] sale in
+        self?.modified = true
+      }
+      .store(in: &self.cancellables)
+  }
+   
+  // Firestore
    
   private var db = Firestore.firestore()
-  private var listenerRegistration: ListenerRegistration?
    
-  deinit {
-    unsubscribe()
-  }
-   
-  func unsubscribe() {
-    if listenerRegistration != nil {
-      listenerRegistration?.remove()
-      listenerRegistration = nil
+  private func addSale(_ sale: Sales) {
+    do {
+      let _ = try db.collection("sales").addDocument(from: sale)
+    }
+    catch {
+      print(error)
     }
   }
    
-  func subscribe() {
-    if listenerRegistration == nil {
-      listenerRegistration = db.collection("sales").addSnapshotListener { (querySnapshot, error) in
-        guard let documents = querySnapshot?.documents else {
-          print("No documents")
-          return
-        }
-         
-        self.sales = documents.compactMap { queryDocumentSnapshot in
-          try? queryDocumentSnapshot.data(as: Sale.self)
+  private func updateSale(_ sale: Sales) {
+    if let documentId = sale.id {
+      do {
+        try db.collection("sales").document(documentId).setData(from: sale)
+      }
+      catch {
+        print(error)
+      }
+    }
+  }
+   
+  private func updateOrAddSale() {
+    if let _ = sale.id {
+      self.updateSale(self.sale)
+    }
+    else {
+      addSale(sale)
+    }
+  }
+   
+  private func removeSale() {
+    if let documentId = sale.id {
+      db.collection("sales").document(documentId).delete { error in
+        if let error = error {
+          print(error.localizedDescription)
         }
       }
     }
   }
    
-  func removeSales(atOffsets indexSet: IndexSet) {
-    let sales = indexSet.lazy.map { self.sales[$0] }
-      sales.forEach { sale in
-      if let documentId = sale.id {
-        db.collection("sales").document(documentId).delete { error in
-          if let error = error {
-            print("Unable to remove document: \(error.localizedDescription)")
-          }
-        }
-      }
-    }
+  // UI handlers
+   
+  func handleDoneTapped() {
+    self.updateOrAddSale()
   }
+   
+  func handleDeleteTapped() {
+    self.removeSale()
+  }
+   
 }
